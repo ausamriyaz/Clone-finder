@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Main extends Application {
@@ -19,30 +20,36 @@ public class Main extends Application {
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
-
+        File file=new File("J:\\movies\\sample");
+        search(file);
+        for (Files c: allFiles){
+            System.out.println(c.getPath());
+        }
     }
 
     //add the directories and files seperately to the arraylist
-    public static void search(String pathname){
-        File folder = new File(pathname);
-        File[] listOfFiles = folder.listFiles();
-
-        for (int i = 0; i < listOfFiles.length; i++) {
-            if (listOfFiles[i].isFile()) {
-
-
-                Files files = new Files();
-                String name=listOfFiles[i].getName();
-                long size=listOfFiles[i].length();
-                files.setName(name);
-                files.setTotalSpace(size);
-                files.setPath(pathname+"\\"+name);
-                allFiles.add(files);
+    public static void search(File dir){
+        try {
+            File[] files = dir.listFiles();
+            for (File file : files) {
+                if (file.isDirectory()) {
 
 
-            } else if (listOfFiles[i].isDirectory()) {
-                directories.add((folder.getPath()+"\\"+listOfFiles[i].getName()));
+                    search(file);
+                } else {
+                    Files fil = new Files();
+                    String name=file.getName();
+                    long size=file.length();
+                    fil.setName(name);
+                    fil.setTotalSpace(size);
+                    fil.setPath(file.getCanonicalPath());
+                    allFiles.add(fil);
+
+
+                }
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     public static void main(String[] args) {
