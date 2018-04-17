@@ -1,14 +1,32 @@
 package sample;
 
 public class Files {
-    String names;
-    int totalBytes;
+    String name;
+    String path;
+    long totalSpace;
 
-    public String getNames() {
-        return names;
+    public String getPath() {
+        return path;
     }
 
-    public void setNames(String names) {
-        this.names = names;
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public String getName() {
+
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public long getTotalSpace() {
+        return totalSpace;
+    }
+
+    public void setTotalSpace(long totalSpace) {
+        this.totalSpace = totalSpace;
     }
 }
